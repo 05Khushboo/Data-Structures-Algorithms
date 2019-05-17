@@ -58,7 +58,6 @@ int main()
         for(ll i = 0; i < e; i++)
         {
             ll u, v, w; cin >> u >> v >> w;
-            u--; v--;
 
             edge.pb({{u, v}, w});
         }
