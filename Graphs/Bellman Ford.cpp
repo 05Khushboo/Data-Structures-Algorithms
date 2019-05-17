@@ -13,7 +13,7 @@ using namespace std;
 #define pb push_back
 #define mp make_pair
 const ll N = 1E6;
-ll n, e, dist[N], vis[N];
+ll n, e, dist[N];
 vector<pair<pair<ll, ll>, ll> > edge;
 
 bool bellman_check(ll edge_idx)
@@ -21,8 +21,6 @@ bool bellman_check(ll edge_idx)
     ll u = edge[edge_idx].first.first;
     ll v = edge[edge_idx].first.second;
     ll w = edge[edge_idx].second;
-    
-    vis[u] = vis[v] = 1;
 
     if(dist[v] > (dist[u] + w)) 
     {
@@ -46,15 +44,11 @@ bool bellman_ford(ll src)
 }
 int main()
 {
-
     ll t; cin >> t;
     while(t--)
     {
         edge.clear();
         cin >> n >> e;
-
-        for(ll i = 0; i < n; i++) vis[i] = 0;
-
         for(ll i = 0; i < e; i++)
         {
             ll u, v, w; cin >> u >> v >> w;
@@ -62,17 +56,8 @@ int main()
             edge.pb({{u, v}, w});
         }
 
-        bool negative_weight_cycle = false;
-        for(ll i = 0; i < n; i++)
-        {
-            if(!vis[i] && bellman_ford(i)) 
-            {
-                negative_weight_cycle = true;
-                break;
-            }
-        }
-
-        if(negative_weight_cycle) cout << 1 << endl;
+        ll src = 0;
+        if(bellman_ford(src)) cout << 1 << endl;
         else cout << 0 << endl;
     }   
     return 0;
